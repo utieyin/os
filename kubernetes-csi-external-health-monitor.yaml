@@ -25,8 +25,8 @@ subpackages:
     description: "Compatibility package to place binaries in the location expected by upstream image"
     pipeline:
       - runs: |
-          mkdir -p "${{targets.subpkgdir}}"
-          ln -sf /usr/bin/csi-external-health-monitor-controller ${{targets.subpkgdir}}/
+          mkdir -p "${{targets.subpkgdir}}/"
+          ln -sf /usr/bin/csi-external-health-monitor-controller ${{targets.subpkgdir}}/csi-external-health-monitor-controller
     test:
       pipeline:
         - name: "Verify the symlink"
