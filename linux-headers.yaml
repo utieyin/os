@@ -1,6 +1,6 @@
 package:
   name: linux-headers
-  version: "6.17.7"
+  version: "6.18.1"
   epoch: 0
   description: "the Linux kernel headers (cross compilation)"
   copyright:
@@ -20,7 +20,7 @@ pipeline:
     with:
       repository: https://github.com/gregkh/linux
       tag: v${{package.version}}
-      expected-commit: 7660ce69123ea73b22930fcf20d995ad310049ef
+      expected-commit: 25442251cbda7590d87d8203a8dc1ddf2c93de61
 
   - runs: |
       make mrproper

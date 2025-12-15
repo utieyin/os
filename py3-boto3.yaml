@@ -1,6 +1,6 @@
 package:
   name: py3-boto3
-  version: "1.40.72"
+  version: "1.42.9"
   epoch: 0
   description: The AWS SDK for Python
   copyright:
@@ -30,7 +30,7 @@ pipeline:
     with:
       repository: https://github.com/boto/boto3
       tag: ${{package.version}}
-      expected-commit: abbd2c4c5eac244ec67ef2aab75e0175adda225e
+      expected-commit: 70183cf04d296effa96d26f65daea72f808d0b2b
 
 subpackages:
   - range: py-versions

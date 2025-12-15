@@ -1,7 +1,7 @@
 package:
   name: clamav-1.5
   version: "1.5.1"
-  epoch: 0
+  epoch: 3
   description: An anti-virus toolkit for UNIX eis-ng backport
   copyright:
     - license: GPL-2.0-only
@@ -98,8 +98,20 @@ pipeline:
         -e "s:.*\(User\) .*:\1 clamav:" \
         -e "s:^\#\(LogFile\) .*:\1 /var/log/clamav/clamd.log:" \
         -e "s:^\#\(LogTime\).*:\1 yes:" \
-            -e "s:^\#\(AllowSupplementaryGroups\).*:\1 yes:" \
+        -e "s:^\#\(AllowSupplementaryGroups\).*:\1 yes:" \
         "${{targets.destdir}}"/etc/clamav/clamd.conf.sample
+
+      # Configure milter defaults
+      sed -i -e "s:^\(Example\):\# \1:" \
+        -e "s|.*\(MilterSocket\) .*|\1 inet:7357|" \
+        -e "s:.*\(User\) .*:\1 clamav:" \
+        -e "s:^\#\(LogFile\) .*:\1 /var/log/clamav/milter.log:" \
+        -e "s:^\#\(LogTime\).*:\1 yes:" \
+        -e "s|.*\(ClamdSocket\) .*|\1 unix:/run/clamav/clamd.sock|" \
+        "${{targets.destdir}}"/etc/clamav/clamav-milter.conf.sample
+
+      # Enable TCPSocket 3310
+      sed -i 's/^#TCPSocket.*/TCPSocket 3310/' "${{targets.destdir}}/etc/clamav/clamd.conf.sample"
 
 subpackages:
   - name: ${{package.name}}-doc
@@ -197,12 +209,14 @@ subpackages:
     description: ClamAV daemon client
     test:
       pipeline:
-        - runs: |
-            clamdscan --help
+        - uses: test/tw/help-check
+          with:
+            bins: clamdscan
     dependencies:
       provides:
         - clamav-clamdscan=${{package.full-version}}
       runtime:
+        - ${{package.name}}
         - merged-usrsbin
         - wolfi-baselayout
 
@@ -362,6 +376,12 @@ subpackages:
       - name: Patch files
         runs: |
           sed -i '/^set -eu/a sleep 20' ${{targets.contextdir}}/usr/local/bin/clamdcheck.sh
+    checks:
+      disabled:
+        # Ships /run/clamav without corresponding tmpfiles.d snippet, but
+        # this is only used in Docker and the entry point creates the
+        # directory if it doesn't exist, so it doesn't matter.
+        - tempdir
     test:
       environment:
         contents:

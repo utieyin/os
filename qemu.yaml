@@ -1,7 +1,7 @@
 package:
   name: qemu
-  version: "10.1.2"
-  epoch: 1
+  version: "10.1.3"
+  epoch: 0
   description: "fast processor emulator"
   copyright:
     - license: GPL-2.0
@@ -22,6 +22,7 @@ environment:
       - bash
       - bison
       - build-base
+      - curl-dev
       - flex
       - git
       - glib
@@ -30,6 +31,7 @@ environment:
       - libaio-dev
       - libjpeg-turbo-dev
       - liburing-dev
+      - libxkbcommon-dev
       - ncurses
       - ncurses-dev
       - ninja-build
@@ -38,6 +40,7 @@ environment:
       - python3-as-${{vars.python-version}}
       - samurai
       - wolfi-base
+      - xkeyboard-config
       - zlib-dev
       - zlib-static
       - zstd-dev
@@ -46,7 +49,7 @@ pipeline:
   - uses: git-checkout
     with:
       repository: https://github.com/qemu/qemu
-      expected-commit: ccaea6b2656ec6eab966585f7b16438208f98de7
+      expected-commit: 93be9e6bd43e460a6d497aa96c282c5b5acf4d06
       tag: v${{package.version}}
 
   - name: "qemu-system"
@@ -318,10 +321,12 @@ test:
           $i --help 2>/dev/null && echo "$i --> OKAY" || echo "$i --> FAIL"
           $i --version 2>/dev/null && echo "$i --> OKAY" || echo "$i --> FAIL"
         done
+        elf2dmp 2>&1 | grep -q "elf2dmp elf_file dmp_file"
         qemu-edid version
         qemu-edid help
         qemu-ga --version
         qemu-ga --help
+        qemu-keymap -h 2>&1 | grep -q "qemu-keymap"
         qemu-pr-helper --version
         qemu-pr-helper --help
 

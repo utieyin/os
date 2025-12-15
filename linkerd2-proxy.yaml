@@ -1,6 +1,6 @@
 package:
   name: linkerd2-proxy
-  version: "2.329.0"
+  version: "2.333.0"
   epoch: 0 # GHSA-xwfj-jgwm-7wp5
   description: "A program that validates linkerd networks"
   dependencies:
@@ -28,7 +28,7 @@ pipeline:
     with:
       repository: https://github.com/linkerd/linkerd2-proxy
       tag: release/v${{package.version}}
-      expected-commit: 1840469e40ec9db2e763100e4bc27a108ebcd0ac
+      expected-commit: b69be926d8344c619701af517424bca852c4f8fd
 
   - uses: rust/cargobump
 

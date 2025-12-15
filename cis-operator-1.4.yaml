@@ -1,6 +1,6 @@
 package:
   name: cis-operator-1.4
-  version: "1.4.4"
+  version: "1.4.6"
   epoch: 0 # CVE-2025-47910
   description: Helps to enable running CIS benchmark security scans on a Kubernetes cluster and generate compliance reports that can be downloaded
   copyright:
@@ -14,7 +14,7 @@ pipeline:
     with:
       repository: https://github.com/rancher/cis-operator
       tag: v${{package.version}}
-      expected-commit: 18e48ae8e285a961946eb2190deb2f78cc7ea248
+      expected-commit: 0b27508c483f42621cde1d175ace08c3b35956d1
 
   - uses: go/build
     with:

@@ -1,7 +1,7 @@
 package:
   name: postfix
-  version: "3.10.5"
-  epoch: 1
+  version: "3.10.7"
+  epoch: 0
   description: Secure and fast drop-in replacement for Sendmail (MTA)
   copyright:
     - license: IPL-1.0 OR EPL-2.0
@@ -60,7 +60,7 @@ data:
 pipeline:
   - uses: fetch
     with:
-      expected-sha256: 6a926bf702173861b08e49bcb51fca3a2f269f9a337f72ef159bf46052087e35
+      expected-sha256: fcd3ff70806ae7f0a82e7b5c301e2f4fcfa6a689a2dbb3b3f1b5e5208115788a
       uri: https://de.postfix.org/ftpmirror/official/postfix-${{package.version}}.tar.gz
 
   - runs: |

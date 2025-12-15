@@ -1,6 +1,6 @@
 package:
   name: py3-beartype
-  version: "0.22.5"
+  version: "0.22.9"
   epoch: 0
   description: Unbearably fast runtime type checking in pure Python.
   copyright:
@@ -31,7 +31,7 @@ pipeline:
     with:
       repository: https://github.com/beartype/beartype
       tag: v${{package.version}}
-      expected-commit: ec7400f6336a0b28cbcc3036e26871802b333f7b
+      expected-commit: 9430c6515af3b158acacdc47fe7b1adb646f6624
 
 subpackages:
   - range: py-versions

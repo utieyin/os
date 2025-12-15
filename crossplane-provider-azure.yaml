@@ -1,7 +1,7 @@
 package:
   name: crossplane-provider-azure
-  version: "2.2.0"
-  epoch: 1 # CVE-2025-47907
+  version: "2.3.0"
+  epoch: 0 # GHSA-j5w8-q4qc-rx2x
   description: Official Azure Provider for Crossplane by Upbound
   copyright:
     - license: Apache-2.0
@@ -30,7 +30,7 @@ pipeline:
     with:
       repository: https://github.com/crossplane-contrib/provider-upjet-azure
       tag: v${{package.version}}
-      expected-commit: 409499ed4d97d2256b2f4ea522366db90d60d8b2
+      expected-commit: 1b42cec3b5004e9665bc0e8cde000713f7533883
       recurse-submodules: true
 
   - runs: |

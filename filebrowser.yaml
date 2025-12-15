@@ -1,8 +1,8 @@
 package:
   name: filebrowser
-  version: "2.45.1"
+  version: "2.52.0"
   description: "Web File Browser"
-  epoch: 0 # GHSA-rwvp-r38j-9rgg
+  epoch: 0 # GHSA-j5w8-q4qc-rx2x
   copyright:
     - license: Apache-2.0
 
@@ -12,33 +12,34 @@ environment:
       - ca-certificates-bundle
       - jq
       - mailcap
-      - nodejs
-      - npm
+      - nodejs-${{vars.node-version}}
       - pnpm
       - wolfi-base
+
+vars:
+  # Follow the NodeJS version used by the upstream pipeline: https://github.com/filebrowser/filebrowser/blob/master/.github/workflows/ci.yaml
+  node-version: 24
 
 pipeline:
   - uses: git-checkout
     with:
       repository: https://github.com/filebrowser/filebrowser.git
       tag: v${{package.version}}
-      expected-commit: 7a5b9646116478d1cbc9110d865852091fa99572
+      expected-commit: c11c986b7383a5c1f18d82ee7e6093dc0544cff9
 
   - name: install-npm-dependencies
     working-directory: frontend
     pipeline:
       - runs: |
-          npm install --frozen-lockfile
-          NODE_ENV=production npm run build
+          # Follows build:frontend task in upstream Taskfile
+          # https://github.com/filebrowser/filebrowser/blob/master/Taskfile.yml
+          pnpm install --frozen-lockfile
+          pnpm run build
 
   - uses: go/bump
     with:
       replaces: github.com/mholt/archiver/v3=github.com/anchore/archiver/v3@v3.5.2
       modroot: .
-      deps: |-
-        github.com/ulikunitz/xz@v0.5.14
-        github.com/nwaples/rardecode/v2@v2.2.0
-        github.com/mholt/archives@v0.1.5-0.20251009205813-e30ac6010726
 
   - uses: go/build
     with:
@@ -60,8 +61,6 @@ pipeline:
           # We generally want the alpine-specific files: common/healthcheck.sh
           # uses jq rather than alpine's json.sh, though, so we prefer that
           cp docker/common/healthcheck.sh ${{targets.destdir}}/
-
-          cp settings.json ${{targets.contextdir}}/.filebrowser.json
 
 subpackages:
   - name: ${{package.name}}-compat

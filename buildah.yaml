@@ -1,8 +1,8 @@
 package:
   name: buildah
-  version: "1.42.0"
+  version: "1.42.2"
   description: "A tool that facilitates building OCI images"
-  epoch: 1 # GHSA-qw9x-cqr3-wc7r
+  epoch: 2 # GHSA-jv3w-x3r3-g6rm
   copyright:
     - license: Apache-2.0
   dependencies:
@@ -27,12 +27,14 @@ pipeline:
     with:
       repository: https://github.com/containers/buildah
       tag: v${{package.version}}
-      expected-commit: 1ba41f035a103e8cf1132c7399bf0ed75d6df53e
+      expected-commit: c0cc97255c76f7a3d87bfdf5e7b97f013f0bfe85
 
   - uses: go/bump
     with:
       deps: |-
-        github.com/opencontainers/runc@v1.3.3
+        golang.org/x/crypto@v0.45.0
+        github.com/sigstore/fulcio@v1.8.3
+        github.com/containernetworking/plugins@v1.9.0
 
   - runs: |
       make

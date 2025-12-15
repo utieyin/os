@@ -1,6 +1,6 @@
 package:
   name: dataplaneapi
-  version: "3.2.5"
+  version: "3.2.7"
   epoch: 1 # CVE-2025-58187
   description: HAProxy Data Plane API
   copyright:
@@ -20,7 +20,7 @@ pipeline:
       repository: https://github.com/haproxytech/dataplaneapi
       tag: v${{package.version}}
       destination: dataplaneapi
-      expected-commit: 152e8a06edbda53d0bc7fe42ef140c13a224cd72
+      expected-commit: 3f1e3ef3bba6660fe37aebe3a6d904d877daa66c
 
   - runs: |
       set -x

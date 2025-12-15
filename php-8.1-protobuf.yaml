@@ -1,6 +1,6 @@
 package:
   name: php-8.1-protobuf
-  version: "4.33.0"
+  version: "4.33.2"
   epoch: 0
   description: "Protocol Buffers - Google's data interchange format"
   copyright:
@@ -31,7 +31,7 @@ pipeline:
   - uses: fetch
     with:
       uri: https://pecl.php.net/get/protobuf-${{package.version}}.tgz
-      expected-sha512: a8957023f12effd9b4946d3d0c57a8c78f16adf921a0b392cb384177e7ddf25dc727e77b3ce7ab89c820244b04b61a92d7abc28de49646e5aa8210ce6c1c3e7b
+      expected-sha512: 147e45892bafe525cbf22e1d14536bac423ae421f506680a65b0fdfe0125eccaed01a0ccae9b93c97718b0f16b54b81798bb36b267674667750aa8607c806f67
 
   - name: Prepare build
     runs: phpize

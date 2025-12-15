@@ -1,6 +1,6 @@
 package:
   name: neuvector-scanner
-  version: "3.981"
+  version: "4.013"
   epoch: 0 # GHSA-cgrx-mc8f-2prm
   description: NeuVector vulnerability scanner for the SUSE NeuVector Container Security Platform
   copyright:
@@ -23,12 +23,7 @@ pipeline:
     with:
       repository: https://github.com/neuvector/scanner
       tag: v${{package.version}}
-      expected-commit: 2796dab92bbd71dcc88f454a39f0b22773af5108
-
-  - uses: go/bump
-    with:
-      deps: |-
-        github.com/opencontainers/selinux@v1.13.0
+      expected-commit: 35f249f57b0f37656368735fec2f83c0154e9276
 
   - uses: go/build
     with:

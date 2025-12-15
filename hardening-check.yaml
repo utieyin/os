@@ -1,6 +1,6 @@
 package:
   name: hardening-check
-  version: "2.25.25"
+  version: "2.25.30"
   epoch: 0
   description: "Debian devscripts hardening-check"
   copyright:
@@ -19,7 +19,7 @@ pipeline:
     with:
       repository: https://salsa.debian.org/debian/devscripts.git
       tag: v${{package.version}}
-      expected-commit: a822d5a54b46ed4bd24033cb7878d412f6576359
+      expected-commit: 05d95a967cc68a85621430c1b2a14b68299d1f44
 
   - runs: |
       mkdir -p "${{targets.destdir}}"/usr/bin

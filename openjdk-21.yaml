@@ -1,7 +1,7 @@
 package:
   name: openjdk-21
   version: "21.0.9"
-  epoch: 0
+  epoch: 2
   description:
   copyright:
     - license: GPL-2.0-with-classpath-exception
@@ -71,7 +71,9 @@ pipeline:
   # Patch source: https://github.com/openjdk/jdk/commit/9bfae8891e6efa58c557bd6dac61de111a16f71e
   - uses: patch
     with:
-      patches: JDK-8332297.patch
+      patches: |
+        JDK-8332297.patch
+        JDK-8330005.patch
 
   - runs: chmod +x configure
 
@@ -175,7 +177,13 @@ subpackages:
 
           # symlink for `java-common` to work (which expects jre in $_java_home/jre)
           ln -sf . "${{targets.subpkgdir}}/$_java_home/jre"
+
+          # check that jdk.random is included in image
+          jimage list "${{targets.subpkgdir}}"/$_java_home/lib/modules | grep "Module: jdk.random"
       - uses: strip
+    test:
+      pipeline:
+        - uses: test/tw/ldd-check
 
   - name: "openjdk-21-jmods"
     description: "OpenJDK 21 jmods"
@@ -283,6 +291,7 @@ test:
     environment:
       JAVA_HOME: /usr/lib/jvm/java-17-openjdk
   pipeline:
+    - uses: test/tw/ldd-check
     # Test a basic Hello World
     - working-directory: basic
       runs: |

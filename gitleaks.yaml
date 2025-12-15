@@ -1,7 +1,7 @@
 package:
   name: gitleaks
-  version: "8.29.0"
-  epoch: 0 # CVE-2025-58187
+  version: "8.30.0"
+  epoch: 1 # CVE-2025-61729
   description: SAST tool for detecting and preventing hardcoded secrets like passwords, api keys, and tokens in git repos
   copyright:
     - license: MIT
@@ -23,7 +23,7 @@ pipeline:
   - uses: git-checkout
     with:
       repository: https://github.com/gitleaks/gitleaks
-      expected-commit: ed65b65095eb699c614aa5ac058f6724539fb03f
+      expected-commit: 6eaad039603a4de39fddd1cf5f727391efe9974e
       tag: v${{package.version}}
 
   - uses: go/bump
@@ -32,6 +32,7 @@ pipeline:
         github.com/ulikunitz/xz@v0.5.14
         github.com/nwaples/rardecode/v2@v2.2.0
         github.com/mholt/archives@v0.1.5-0.20251009205813-e30ac6010726
+        golang.org/x/crypto@v0.45.0
 
   - runs: |
       make build
