@@ -1,7 +1,7 @@
 package:
   name: py3-cython
-  version: "3.2.3"
-  epoch: 0
+  version: "3.2.4"
+  epoch: 1
   description: Cython is an optimising static compiler for both the Python & the extended Cython programming languages.
   copyright:
     - license: Apache-2.0
@@ -29,10 +29,11 @@ environment:
       - py3-supported-wheel
 
 pipeline:
-  - uses: fetch
+  - uses: git-checkout
     with:
-      expected-sha256: 73874ec935d60e1c272472f3526f62cd4507dcdfad51402ec08be9b490669b28
-      uri: https://github.com/cython/cython/archive/${{package.version}}.tar.gz
+      repository: https://github.com/cython/cython
+      tag: ${{package.version}}
+      expected-commit: 21bda420d583bcf464fb9efb932b09c5f3db1efd
 
 subpackages:
   - range: py-versions

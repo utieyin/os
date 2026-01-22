@@ -1,6 +1,6 @@
 package:
   name: py3-google-auth
-  version: "2.44.0"
+  version: "2.47.0"
   epoch: 0
   description: Google Authentication Library
   copyright:
@@ -30,7 +30,7 @@ pipeline:
     with:
       repository: https://github.com/googleapis/google-auth-library-python
       tag: v${{package.version}}
-      expected-commit: 262eb9e33d58ffeb536ecd083c22d9fb12c808e6
+      expected-commit: f32301a03372eb72a8b5542a4cc223e01ee1e33b
 
 subpackages:
   - range: py-versions

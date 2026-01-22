@@ -1,6 +1,6 @@
 package:
   name: freerdp-3
-  version: "3.19.1"
+  version: "3.21.0"
   epoch: 0
   description: FreeRDP client
   copyright:
@@ -38,8 +38,8 @@ environment:
       - libxext-dev
       - libxi-dev
       - libxinerama-dev
-      - libxkb-dev
       - libxkbcommon-dev
+      - libxkbfile-dev
       - libxrender-dev
       - libxslt
       - libxv-dev
@@ -54,7 +54,7 @@ pipeline:
     with:
       repository: https://github.com/FreeRDP/FreeRDP
       tag: ${{package.version}}
-      expected-commit: f848367ffa82b43c52705b637cfc9cdfd594f7c5
+      expected-commit: 6f5d0048f006a2d2ffc9b9fa05f0e98db464c5a4
 
   - runs: |
       CFLAGS="$CFLAGS -fPIC" \

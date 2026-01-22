@@ -1,6 +1,6 @@
 package:
   name: ruby3.2-protocol-http
-  version: "0.56.1"
+  version: "0.58.1"
   epoch: 0
   description: Provides abstractions to handle HTTP protocols.
   copyright:
@@ -25,7 +25,7 @@ vars:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: f4f463acfea110cb2f711ad5aceeb9d0b122529f
+      expected-commit: bb8b8301da8e3bad44b2d8a9a9946fdcd907f560
       repository: https://github.com/socketry/protocol-http
       tag: v${{package.version}}
 
